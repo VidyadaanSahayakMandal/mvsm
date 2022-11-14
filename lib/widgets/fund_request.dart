@@ -8,6 +8,7 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:svsm/widgets/common.dart';
 
 class FundRequestWidget extends StatefulWidget {
   const FundRequestWidget({super.key});
@@ -28,7 +29,7 @@ class _FundRequestWidgetState extends State<FundRequestWidget> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Text("Plan Expenditure"),
+        const Text("Plan Expenditure", style: Common.textStyleHeader1),
         TextField(
           decoration: const InputDecoration(
             border: UnderlineInputBorder(),
@@ -42,7 +43,9 @@ class _FundRequestWidgetState extends State<FundRequestWidget> {
             labelText: "Details",
           ),
           onChanged: (value) {},
-        )
+          keyboardType: TextInputType.multiline,
+          maxLines: 5,
+        ),
       ],
     );
   }

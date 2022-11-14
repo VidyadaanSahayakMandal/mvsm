@@ -51,7 +51,7 @@ class _FinanceState extends State<Finance> {
               child: FloatingActionButton(
                 heroTag: "hero1",
                 onPressed: () {},
-                child: const Icon(Icons.add),
+                child: const Icon(Icons.check),
               ),
             ),
             Align(
@@ -66,12 +66,15 @@ class _FinanceState extends State<Finance> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        child: const FundRequestWidget(),
+                        child: const Padding(
+                          padding: EdgeInsets.all(20.0),
+                          child: FundRequestWidget(),
+                        ),
                       );
                     },
                   );
                 },
-                child: const Icon(Icons.check),
+                child: const Icon(Icons.add),
               ),
             ),
           ],

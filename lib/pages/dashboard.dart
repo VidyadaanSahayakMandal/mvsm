@@ -7,7 +7,6 @@
  * Copyright (c) 2022 Vikas K Solegaonkar
  */
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:svsm/widgets/route_button.dart';
 
 class Dashboard extends StatefulWidget {
@@ -80,6 +79,7 @@ class _DashboardState extends State<Dashboard> {
             height: 120,
             child: GridView.count(
               crossAxisCount: 4,
+              padding: const EdgeInsets.all(30),
               children: const [
                 RouteButton(path: "/goals", image: "goals"),
                 RouteButton(path: "/finance", image: "finance"),

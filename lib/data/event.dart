@@ -33,6 +33,7 @@ class Event extends DataItem {
 
   @override
   Map<String, dynamic> toJson() => {
+        "context": context,
         "id": id,
         "title": title,
         "eventType": eventType,
