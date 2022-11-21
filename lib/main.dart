@@ -8,6 +8,7 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:svsm/data/cloud.dart';
 import 'package:svsm/pages/finance.dart';
 import 'package:svsm/pages/goals.dart';
 import 'package:svsm/pages/sharing.dart';
@@ -16,7 +17,9 @@ import 'package:svsm/pages/updates.dart';
 import 'pages/dashboard.dart';
 
 void main() {
+  print("Before runapp");
   runApp(const MyApp());
+  print("End of main");
 }
 
 class MyApp extends StatelessWidget {
@@ -25,6 +28,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    print("MyApp build");
+    Cloud.websocketInit();
+    Cloud.webSocketSubscribe();
     return MaterialApp(
       routes: {
         "/": (context) => const Dashboard(title: "VSM"),

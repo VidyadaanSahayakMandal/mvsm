@@ -9,6 +9,7 @@
 import 'dart:ui';
 
 import "package:flutter/material.dart";
+import 'package:svsm/data/cloud.dart';
 
 class RouteButton extends StatelessWidget {
   const RouteButton({
@@ -39,6 +40,10 @@ class RouteButton extends StatelessWidget {
           "assets/$image.png",
         ),
         onPressed: () {
+          Cloud.websocketSend(
+            action: "WebSocketEcho",
+            data: {"message": "Hello World"},
+          );
           Navigator.pushNamed(context, path);
         },
       ),
