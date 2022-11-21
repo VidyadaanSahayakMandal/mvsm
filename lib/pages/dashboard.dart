@@ -11,9 +11,9 @@ import 'package:svsm/data/cloud.dart';
 import 'package:svsm/widgets/route_button.dart';
 
 class Dashboard extends StatefulWidget {
-  const Dashboard({super.key, required this.title});
+  const Dashboard({super.key});
 
-  final String title;
+  final String title = "VSM";
 
   @override
   State<Dashboard> createState() => _DashboardState();

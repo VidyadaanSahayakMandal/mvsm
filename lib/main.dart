@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:svsm/data/cloud.dart';
 import 'package:svsm/pages/finance.dart';
 import 'package:svsm/pages/goals.dart';
+import 'package:svsm/pages/login.dart';
 import 'package:svsm/pages/sharing.dart';
 import 'package:svsm/pages/updates.dart';
 
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
     Cloud.webSocketSubscribe();
     return MaterialApp(
       routes: {
-        "/": (context) => const Dashboard(title: "VSM"),
+        "/": (context) => const Login(),
         "/finance": (context) => const Finance(),
         "/goals": (context) => const Goals(),
         "/sharing": (context) => const Sharing(),
