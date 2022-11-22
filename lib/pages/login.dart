@@ -20,6 +20,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:svsm/data/cloud.dart';
+import 'package:svsm/data/secret.dart';
 import 'package:svsm/widgets/common.dart';
 
 class Login extends StatefulWidget {
@@ -30,108 +31,101 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  String step = "INIT";
+  String step = STEP_INIT;
   String label = "Email ID";
   String email = "";
   String otp = "";
+  final textFieldController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    SecretManager.init().then((value) {
+      var token = SecretManager.getSecret(key: "token");
+      if (token != null) {
+        Cloud.setToken(token);
+        Cloud.websocketInit();
+        Cloud.webSocketSubscribe();
+        Navigator.pushReplacementNamed(context, "/dashboard");
+      }
+    });
+  }
+
+  final stepText = {
+    STEP_INIT: "If you are a registered VSM Student, please enter your Email ID to "
+        "continue. If you are not a VSM student, you can apply by providing the required details.",
+    STEP_GET_OTP: "Please check your mailbox for an email from ${Cloud.otpMailId}. "
+        "If you are a new to VSM, you can apply by providing the required details.",
+  };
+
+  final stepTextFieldLabel = {
+    STEP_INIT: "EmailID",
+    STEP_GET_OTP: "OTP",
+  };
+
+  final stepButtonText = {
+    STEP_INIT: "Get OTP",
+    STEP_GET_OTP: "Submit",
+  };
+
+  void initOtpButtonClick() {
+    email = textFieldController.text;
+
+    Cloud.post(
+      service: Cloud.SERVICE_USER,
+      action: Cloud.ACTION_SEND_OTP,
+      data: {"email": email},
+    ).then((response) {
+      if (response["success"]) {
+        textFieldController.clear();
+        if (!response["value"].containsKey("subscription")) {
+          setState(() {
+            step = STEP_NEW_STUDENT_OTP;
+          });
+          return;
+        }
+        var subscription = response["value"]["subscription"];
+        if (subscription["plan"] == "student" &&
+            subscription["endDate"] > DateTime.now().millisecondsSinceEpoch) {
+          setState(() {
+            step = STEP_GET_OTP;
+          });
+        }
+      }
+    }).catchError((error) {
+      print(error);
+    });
+  }
+
+  void getOtpButtonClick() {
+    otp = textFieldController.text;
+    Cloud.post(
+      service: Cloud.SERVICE_USER,
+      action: Cloud.ACTION_CHECK_OTP,
+      data: {"email": email, "otp": otp},
+    ).then((response) {
+      if (response["success"]) {
+        Cloud.setToken(response["value"]);
+        SecretManager.addSecret(key: "token", value: response["value"]);
+        Navigator.pushReplacementNamed(context, "/dashboard");
+      } else {
+        print("OTP Mismatch");
+      }
+    });
+  }
+
+  void buttonClick() {
+    if (step == STEP_INIT) {
+      initOtpButtonClick();
+    } else if (step == STEP_GET_OTP) {
+      getOtpButtonClick();
+    }
+  }
 
   void setStep(String newStep) {
     setState(() {
       step = newStep;
     });
-  }
-
-  Widget getEmailId() {
-    return Column(
-      children: [
-        const Text("Welcome.", style: Common.textStyleHeader1),
-        const Text(
-          "If you are a registered VSM Student, please enter your Email ID to continue. "
-          "If you are not a VSM student, you can apply by providing the required details.",
-          style: Common.textStyleParagraph,
-        ),
-        TextField(
-          decoration: const InputDecoration(
-            border: UnderlineInputBorder(),
-            labelText: "Email ID",
-          ),
-          onChanged: (value) {
-            setState(() {
-              email = value;
-            });
-          },
-        ),
-        ElevatedButton(
-          onPressed: () {
-            Cloud.post(
-                service: Cloud.SERVICE_USER,
-                action: Cloud.ACTION_SEND_OTP,
-                data: {"email": email}).then((value) {
-              print(value);
-            }).catchError((error) {
-              print(error);
-            });
-            setState(() {
-              step = STEP_GET_OTP;
-            });
-          },
-          style: Common.elevatedButtonStyle,
-          child: const Text("Get OTP"),
-        )
-      ],
-    );
-  }
-
-  Widget getOtp() {
-    return Column(
-      children: [
-        const Text("Welcome.", style: Common.textStyleHeader1),
-        const Text(
-          "Please check your mailbox for an email from ${Cloud.otpMailId}. "
-          "If you are a new to VSM, you can apply by providing the required details.",
-          style: Common.textStyleParagraph,
-        ),
-        TextField(
-          decoration: const InputDecoration(
-            border: UnderlineInputBorder(),
-            labelText: "OTP",
-          ),
-          onChanged: (value) {
-            setState(() {
-              otp = value;
-            });
-          },
-        ),
-        ElevatedButton(
-          onPressed: () {
-            setState(() {
-              step = STEP_GET_OTP;
-            });
-          },
-          style: Common.elevatedButtonStyle,
-          child: const Text("Get OTP"),
-        )
-      ],
-    );
-  }
-
-  Widget showStepWidget() {
-    if (step == STEP_INIT) {
-      return getEmailId();
-    }
-    if (step == STEP_GET_OTP) {
-      return getEmailId();
-    }
-    if (step == STEP_NEW_STUDENT_OTP) {
-      return getEmailId();
-    }
-    if (step == STEP_NEW_STUDENT_FORM) {
-      return getEmailId();
-    }
-    if (step == STEP_NEW_STUDENT_CONFIRMATION) {
-      return getEmailId();
-    }
-    return Container();
   }
 
   @override
@@ -145,7 +139,27 @@ class _LoginState extends State<Login> {
             fit: BoxFit.contain,
             image: AssetImage("assets/logo.png"),
           ),
-          showStepWidget(),
+          Column(
+            children: [
+              const Text("Welcome.", style: Common.textStyleHeader1),
+              Text(
+                stepText[step]!,
+                style: Common.textStyleParagraph,
+              ),
+              TextField(
+                decoration: InputDecoration(
+                  border: const UnderlineInputBorder(),
+                  labelText: stepTextFieldLabel[step],
+                ),
+                controller: textFieldController,
+              ),
+              ElevatedButton(
+                onPressed: buttonClick,
+                style: Common.elevatedButtonStyle,
+                child: Text(stepButtonText[step]!),
+              )
+            ],
+          ),
         ],
       ),
     );

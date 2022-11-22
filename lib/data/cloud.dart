@@ -25,6 +25,10 @@ class Cloud {
       "https://1zw2i3e6xi.execute-api.ap-south-1.amazonaws.com/v1";
   static const otpMailId = "info@vsmthane.org";
 
+  static void setToken(String value) {
+    token = value;
+  }
+
   static void websocketInit() {
     print("Websocket Init");
     channel = IOWebSocketChannel.connect(webSocketUrl);

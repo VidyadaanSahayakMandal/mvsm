@@ -8,7 +8,6 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:svsm/data/cloud.dart';
 import 'package:svsm/pages/finance.dart';
 import 'package:svsm/pages/goals.dart';
 import 'package:svsm/pages/login.dart';
@@ -30,11 +29,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print("MyApp build");
-    Cloud.websocketInit();
-    Cloud.webSocketSubscribe();
+
     return MaterialApp(
       routes: {
         "/": (context) => const Login(),
+        "/dashboard": (context) => const Dashboard(),
         "/finance": (context) => const Finance(),
         "/goals": (context) => const Goals(),
         "/sharing": (context) => const Sharing(),
