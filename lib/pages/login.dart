@@ -131,36 +131,63 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
+      backgroundColor: Colors.lightBlue.shade50,
+      body: Padding(
+        padding: const EdgeInsets.all(32),
+        child: Stack(children: [
           const Image(
             fit: BoxFit.contain,
             image: AssetImage("assets/logo.png"),
           ),
           Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              const Text("Welcome.", style: Common.textStyleHeader1),
-              Text(
-                stepText[step]!,
-                style: Common.textStyleParagraph,
-              ),
-              TextField(
-                decoration: InputDecoration(
-                  border: const UnderlineInputBorder(),
-                  labelText: stepTextFieldLabel[step],
+              const SizedBox(height: 1,),
+              Card(
+                elevation: 40,
+                shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text("Welcome", style: Common.textStyleHeader1),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          stepText[step]!,
+                          style: Common.textStyleParagraph,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            labelText: stepTextFieldLabel[step],
+                          ),
+                          controller: textFieldController,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 16.0),
+                        child: ElevatedButton(
+                          onPressed: buttonClick,
+                          style: Common.elevatedButtonStyle,
+                          child: Text(stepButtonText[step]!),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-                controller: textFieldController,
               ),
-              ElevatedButton(
-                onPressed: buttonClick,
-                style: Common.elevatedButtonStyle,
-                child: Text(stepButtonText[step]!),
-              )
             ],
           ),
-        ],
+        ]),
       ),
     );
   }

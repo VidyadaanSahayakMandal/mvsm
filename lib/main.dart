@@ -41,6 +41,7 @@ class MyApp extends StatelessWidget {
       },
       initialRoute: '/',
       theme: ThemeData(
+        fontFamily: 'OpenSans',
         primaryColor: const Color(0xff2193cf),
         canvasColor: Colors.white,
         scaffoldBackgroundColor: const Color(0xffF7F9FB),
