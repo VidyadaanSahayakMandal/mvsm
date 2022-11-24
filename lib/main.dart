@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       routes: {
-        "/": (context) => const Login(),
+        "/": (context) => const Goals(),
         "/dashboard": (context) => const Dashboard(),
         "/finance": (context) => const Finance(),
         "/goals": (context) => const Goals(),

@@ -42,37 +42,50 @@ class _DashboardState extends State<Dashboard> {
               image: AssetImage("assets/logo.png"),
             ),
           ),
+          const Padding(
+            padding:  EdgeInsets.all(8.0),
+            child:  Text(
+              "Reminders:",
+              style: TextStyle(fontSize: 25),
+            ),
+          ),
           Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: const [
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      "Reminders:",
-                      style: TextStyle(fontSize: 25),
-                    ),
+            child: ListView(
+              padding: const EdgeInsets.all(12),
+              children: const [
+                Card(
+                  elevation: 4,
+                  child: ListTile(
+                    visualDensity: VisualDensity.compact,
+                    title: Text("VSM Event - Job interviews"),
+                    subtitle: Text( "15 Nov: 19:00" ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text("15 Nov: 19:00: VSM Event - Job interviews."),
+                ),
+                Card(
+                  elevation: 4,
+                  child: ListTile(
+                    visualDensity: VisualDensity.compact,
+                    title: Text("College - Project submission"),
+                    subtitle: Text("17 Nov: 19:00"),
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text("17 Nov: 19:00: College - Project submission"),
+                ),
+                Card(
+                  elevation: 4,
+                  child: ListTile(
+                    visualDensity: VisualDensity.compact,
+                    title: Text("VSM Event - How to crack DSA"),
+                    subtitle: Text("25 Nov: 19:00"),
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text("25 Nov: 19:00: VSM Event - How to crach DSA."),
+                ),
+                Card(
+                  elevation: 4,
+                  child: ListTile(
+                    visualDensity: VisualDensity.compact,
+                    title: Text("VSM Process - Submit Monthly Report"),
+                    subtitle: Text("25 Nov: 19:00"),
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                        "30 Nov: 08:00: VSM Process - Submit monthly report."),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
           SizedBox(
