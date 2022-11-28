@@ -1,23 +1,10 @@
-/*
- * Filename: c:\dev\wip\vsm\svsm\lib\pages\goals.dart
- * Path: c:\dev\wip\vsm\svsm\lib\pages
- * Created Date: Saturday, November 12th 2022, 4:38:24 pm
- * Author: Vikas K Solegaonkar
- * 
- * Copyright (c) 2022 Vikas K Solegaonkar
- */
 import 'package:flutter/material.dart';
+import 'package:functional_widget_annotation/functional_widget_annotation.dart';
+import 'package:svsm/widgets/vsm_logo_stack.dart';
 
-class Goals extends StatelessWidget {
-  const Goals({super.key});
+part 'goals.g.dart';
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Goals"),
-      ),
-      body: Container(),
-    );
-  }
+@swidget
+Widget goals(BuildContext context) {
+  return VSMLogoStack(child: Container());
 }
