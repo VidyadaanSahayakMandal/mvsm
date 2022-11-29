@@ -4,49 +4,35 @@ import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 part 'task.g.dart';
 
 @swidget
-Widget taskWidget(
-  BuildContext context, {
-  String title = '',
-  String subtitle = '',
-  Color color = Colors.pink,
-  int i = 0,
-}) {
+Widget taskWidget(BuildContext context,
+    {String title = '',
+    String subtitle = '',
+    MaterialColor color = Colors.pink,
+    int i = 0}) {
   return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 32),
+    padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
     child: Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       shadowColor: color,
-      color: color,
-      elevation: 24,
+      color: color.shade200,
+      elevation: 4,
       child: Stack(
         children: [
           Positioned(
-            right: -70,
-            bottom: i % 2 == 0 ? -70 : null,
-            top: i % 2 != 0 ? -70 : null,
+            right: 20,
+            bottom: i % 2 == 0 ? -20 : null,
+            top: i % 2 != 0 ? -20 : null,
             child: Container(
               alignment: Alignment.bottomRight,
-              height: 140,
-              width: 140,
+              height: 90,
+              width: 90,
               decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(100)),
-            ),
-          ),
-          Positioned(
-            right: -40,
-            bottom: i % 2 == 0 ? -40 : null,
-            top: i % 2 != 0 ? -40 : null,
-            child: Container(
-              alignment: Alignment.bottomRight,
-              height: 80,
-              width: 80,
-              decoration: BoxDecoration(
-                  color: color, borderRadius: BorderRadius.circular(100)),
+                  color: color.shade100,
+                  borderRadius: BorderRadius.circular(50)),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(2.0),
             child: ListTile(
               visualDensity: VisualDensity.compact,
               title: Text(

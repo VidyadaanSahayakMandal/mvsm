@@ -31,7 +31,7 @@ Widget bigSquareButton(
             children: [
               Icon(
                 icon,
-                size: size * 0.4,
+                size: size * 0.35,
               ),
               Center(
                   child: Text(

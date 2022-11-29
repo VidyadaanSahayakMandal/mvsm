@@ -3,6 +3,7 @@ import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import '../widgets/big_square_button.dart';
 import '../widgets/vsm_logo_stack.dart';
 import '../widgets/square_button.dart';
+import 'dialog_budget.dart';
 
 part 'finances.g.dart';
 
@@ -24,11 +25,11 @@ Widget finances(BuildContext context) {
                   fontSize: 32,
                 ),
               ),
-              SquareButton(
-                color: Colors.deepOrange,
-                size: 40,
-                icon: Icons.add,
-              ),
+              // SquareButton(
+              //   color: Colors.deepOrange,
+              //   size: 40,
+              //   icon: Icons.add,
+              // ),
             ],
           ),
           const SizedBox(
@@ -101,25 +102,13 @@ Widget finances(BuildContext context) {
                 onTap: () {
                   showModalBottomSheet(
                     context: context,
-                    backgroundColor: Colors.deepOrange,
+                    backgroundColor: Colors.green.shade200,
                     shape: const RoundedRectangleBorder(
                       borderRadius:
                           BorderRadius.vertical(top: Radius.circular(24.0)),
                     ),
                     builder: (builder) {
-                      return Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 16),
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(24),
-                              ),
-                            ),
-                          ),
-                        ),
-                      );
+                      return const DialogBudget();
                     },
                   );
                 },
