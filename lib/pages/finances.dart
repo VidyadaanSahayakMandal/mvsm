@@ -108,7 +108,9 @@ Widget finances(BuildContext context) {
                           BorderRadius.vertical(top: Radius.circular(24.0)),
                     ),
                     builder: (builder) {
-                      return const DialogBudget();
+                      return const DialogBudget(
+                        title: 'Budget',
+                      );
                     },
                   );
                 },
@@ -118,12 +120,40 @@ Widget finances(BuildContext context) {
                 icon: Icons.add_chart_rounded,
                 color: Colors.lightGreen,
                 subText: 'Expenditure',
+                onTap: () {
+                  showModalBottomSheet(
+                    context: context,
+                    backgroundColor: Colors.lightGreen.shade200,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(24.0)),
+                    ),
+                    builder: (builder) {
+                      return const DialogBudget(
+                        title: 'Expenditure',
+                      );
+                    },
+                  );
+                },
               ),
               BigSquareButton(
                 size: MediaQuery.of(context).size.width * 0.25,
                 color: Colors.lime,
                 icon: Icons.bubble_chart_rounded,
                 subText: 'Advance Request',
+                onTap: () {
+                  showModalBottomSheet(
+                    context: context,
+                    backgroundColor: Colors.lime.shade200,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(24.0)),
+                    ),
+                    builder: (builder) {
+                      return const DialogBudget(title: 'Advance Request');
+                    },
+                  );
+                },
               )
             ],
           ),

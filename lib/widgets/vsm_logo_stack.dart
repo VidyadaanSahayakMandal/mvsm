@@ -12,10 +12,13 @@ Widget vSMLogoStack(BuildContext context, {required Widget child}) {
         right: 0,
         child: Padding(
           padding: EdgeInsets.all(16.0),
-          child: Image(
-            height: 50,
-            fit: BoxFit.contain,
-            image: AssetImage("assets/logo.png"),
+          child: Opacity(
+            opacity: 0.4,
+            child: Image(
+              height: 50,
+              fit: BoxFit.contain,
+              image: AssetImage("assets/logo.png"),
+            ),
           ),
         ),
       ),

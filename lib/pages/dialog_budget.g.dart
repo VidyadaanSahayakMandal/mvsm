@@ -7,8 +7,16 @@ part of 'dialog_budget.dart';
 // **************************************************************************
 
 class DialogBudget extends StatelessWidget {
-  const DialogBudget({Key? key}) : super(key: key);
+  const DialogBudget({
+    Key? key,
+    required this.title,
+  }) : super(key: key);
+
+  final String title;
 
   @override
-  Widget build(BuildContext _context) => dialogBudget(_context);
+  Widget build(BuildContext _context) => dialogBudget(
+        _context,
+        title: title,
+      );
 }

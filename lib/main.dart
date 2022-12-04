@@ -54,7 +54,7 @@ class _MyAppState extends State<MyApp> {
           },
           items: [
             BottomNavigationBarItem(
-              icon: const Icon(Icons.home_rounded),
+              icon: const Icon(Icons.home_outlined),
               label: 'HOME',
               activeIcon: Column(
                 children: const <Widget>[
@@ -66,7 +66,7 @@ class _MyAppState extends State<MyApp> {
               ),
             ),
             BottomNavigationBarItem(
-              icon: const Icon(Icons.currency_rupee_rounded),
+              icon: const Icon(Icons.currency_rupee_outlined),
               label: 'FINANCE',
               activeIcon: Column(
                 children: const <Widget>[
@@ -78,12 +78,12 @@ class _MyAppState extends State<MyApp> {
               ),
             ),
             BottomNavigationBarItem(
-              icon: const Icon(Icons.addchart_rounded),
+              icon: const Icon(Icons.tips_and_updates_outlined),
               label: 'GOALS',
               activeIcon: Column(
                 children: const <Widget>[
                   Icon(
-                    Icons.addchart_rounded,
+                    Icons.tips_and_updates_rounded,
                     size: 32,
                   ),
                 ],
