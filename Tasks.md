@@ -10,3 +10,17 @@
 6. Form for adding Academic and Ahawal update: 7 questions - one button for each question. one column. click on the question to give the details in a text box. Submit button.
 
 7. Social media for student interaction.
+
+---
+
+There are two APIs exported from the cloud:
+- https://api.vsm.svcx.org - REST
+- wss://websocket.vsm.svcx.org - WebSocket
+
+The mobile app should use the WebSocket for all communication, unless there is a reason that demands a REST Api.
+
+When you invoke the REST API, the actual method invoked will depend upon the path: https://api.vsm.svcx.org/event, etc
+
+When you invoke the WebSocket API, the actual method invoked will depend on the field `action` in the payload.
+
+List down the required APIs required, with their name/action.

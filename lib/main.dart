@@ -8,43 +8,89 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:svsm/pages/finance.dart';
-import 'package:svsm/pages/goals.dart';
-import 'package:svsm/pages/login.dart';
-import 'package:svsm/pages/sharing.dart';
-import 'package:svsm/pages/updates.dart';
-
-import 'pages/dashboard.dart';
+import 'pages/goals.dart';
+import 'pages/home.dart';
+import 'pages/finances.dart';
 
 void main() {
   print("Before runapp");
-  runApp(const MyApp());
+  runApp(MyApp());
   print("End of main");
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _MyAppState();
+}
 
-  // This widget is the root of your application.
+class _MyAppState extends State<MyApp> {
+  static int _currentIndex = 0;
+  static const List<Widget> _pages = <Widget>[Home(), Finances(), Goals()];
+
+// This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    print("MyApp build");
-
     return MaterialApp(
-      routes: {
-        "/": (context) => const Login(),
-        "/dashboard": (context) => const Dashboard(),
-        "/finance": (context) => const Finance(),
-        "/goals": (context) => const Goals(),
-        "/sharing": (context) => const Sharing(),
-        "/updates": (context) => const Updates(),
-      },
-      initialRoute: '/',
       theme: ThemeData(
-        primaryColor: const Color(0xff2193cf),
+        fontFamily: 'Quicksand',
+        primaryColor: Colors.blue,
         canvasColor: Colors.white,
         scaffoldBackgroundColor: const Color(0xffF7F9FB),
         dividerColor: Colors.grey.withOpacity(0.3),
+      ),
+      home: Scaffold(
+        body: SafeArea(
+          child: IndexedStack(
+            index: _currentIndex,
+            children: _pages,
+          ),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _currentIndex,
+          onTap: (int index) {
+            setState(() {
+              _currentIndex = index;
+            });
+          },
+          items: [
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.home_outlined),
+              label: 'HOME',
+              activeIcon: Column(
+                children: const <Widget>[
+                  Icon(
+                    Icons.home_rounded,
+                    size: 32,
+                  ),
+                ],
+              ),
+            ),
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.currency_rupee_outlined),
+              label: 'FINANCE',
+              activeIcon: Column(
+                children: const <Widget>[
+                  Icon(
+                    Icons.currency_rupee_rounded,
+                    size: 32,
+                  ),
+                ],
+              ),
+            ),
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.tips_and_updates_outlined),
+              label: 'GOALS',
+              activeIcon: Column(
+                children: const <Widget>[
+                  Icon(
+                    Icons.tips_and_updates_rounded,
+                    size: 32,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
